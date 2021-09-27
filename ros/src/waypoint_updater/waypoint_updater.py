@@ -78,10 +78,8 @@ class WaypointUpdater(object):
         return closestIdx
     
     def publish_waypoints(self, closestIdx):
-        lane = Lane()
-        lane.header = self.baseWaypoints.header
-        lane.waypoints = self.baseWaypoints.waypoints[closestIdx:closestIdx + LOOKAHEAD_WPS]
-        self.final_waypoints_pub.publish(lane)
+        final_lane = self.generate_lane()
+        self.final_waypoints_pub.publish(final_lane)
     
     def generate_lane(self):
         lane = Lane()
